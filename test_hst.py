@@ -16,12 +16,16 @@ from deepCR import deepCR
 from astropy.visualization import astropy_mpl_style
 from astropy.utils.data import get_pkg_data_filename
 plt.rcParams['figure.figsize'] = (20, 10)
-obj_path = input('What is the path to the known objects in a .txt file?')
-sav_path = input('Directory where the files should be stored:')
-file_path= input('What is the path to the files? Include an identifier or asteriks wildcard identifier.')
+obj_path = '/data/home/kdavis/hst_data/region.txt'
+#obj_path = input('What is the path to the known objects in a .txt file?')
+sav_path = '/data/home/kdavis/hst_data/'
+#sav_path = input('Directory where the files should be stored:')
+file_path = '/data/home/kdavis/data/*.fits'
+#file_path= input('What is the path to the files? Include an identifier or asteriks wildcard identifier.')
 paths = glob.glob(file_path)
 length = len(paths)
-thresh = float(input('What threshold would you like to use? 0.5 reccomended.'))
+thresh = 0.5
+#thresh = float(input('What threshold would you like to use? 0.5 reccomended.'))
 lost = []
 n = 0
 bad_im = 0
@@ -30,17 +34,17 @@ for path in paths:
     print(f'Processing image {n} of {length}')
     #try:
     image = fits.getdata(path)
-    names = ['raQSO','decQSO']
+#    names = ['raQSO','decQSO']
     dtype = []
-    dtype.append( (raQSO,U20) )
-    dtype.append( (decQSO,U20) )
+    dtype.append( ('raQSO','U20') )
+    dtype.append( ('decQSO','U20') )
     gotoqinfo = np.genfromtxt(obj_path,dtype=dtype)
     coords = []
-    for i in len(gotoqinfo.shape[0]):
+    for i in range(0, gotoqinfo.shape[0]):
         c = SkyCoord(gotoqinfo[i][0], gotoqinfo[i][1], frame = FK4, unit = (u.hourangle, u.deg))
         coords.append(c)
     with fits.open(path) as hdu:
-        wcs = WCS(fobj = hdu[1], header = hdu[1].header)
+        wcs = WCS(fobj = hdu, header = hdu[1].header)
         pix_x = []
         pix_y = []
         for coord in coords:

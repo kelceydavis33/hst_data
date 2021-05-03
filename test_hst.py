@@ -57,7 +57,7 @@ for path in paths:
     mask, cleaned_image = mdl.clean(image, threshold = thresh)
     vmax = np.median(cleaned_image)+5*np.std(cleaned_image)
     vmin = np.median(cleaned_image)-5*np.std(cleaned_image)
-    figs, axs = plt.subplots(1,4)
+    figs, axs = plt.subplots(1,3)
     axs[0].imshow(cleaned_image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray')
     ident = path.split('/')[-1].split('.')[0]
     axs[0].set_title(f'Adjusted')
@@ -69,10 +69,11 @@ for path in paths:
     axs[1].set_title(f'Original Image')
     axs[2].imshow(mask, origin = 'lower', cmap = 'gray')
     axs[2].set_title(f'ProbabilityMask')
-    axs[3].scatter(pix_x, pix_y)
+    axs[1].scatter(pix_x, pix_y, s = 80, facecolors = 'none', edgecolors = 'r')
+    axs[2].scatter(pix_x, pix_y, s = 80, facecolors = 'none', edgecolors = 'r')
     #axs[3].set_xlim(0,
     #axs[3].set_ylim(0, 
-    axs[3].set_title('Known Stars')
+    #axs[3].set_title('Known Stars')
    # plt.show()
     plt.savefig(sav_path + f'{ident}.png')
    # plt.savefig(sav_path + f'{ident}_original');

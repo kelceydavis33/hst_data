@@ -57,14 +57,14 @@ for path in paths:
     mask, cleaned_image = mdl.clean(image, threshold = thresh)
     vmax = np.median(cleaned_image)+5*np.std(cleaned_image)
     vmin = np.median(cleaned_image)-5*np.std(cleaned_image)
-    dx, dy = 0.005, 0.005
+   # dx, dy = 0.5, 0.5
 
-    x = np.arange(np.min(pix_x), np.max(pix_x), dx)
-    y = np.arange(np.min(pix_y), np.max(pix_y), dy)
-    X, Y = np.meshgrid(x, y)
-    extent = np.min(x), np.max(x), np.min(y), np.max(y)
+   # xi = np.arange(np.min(pix_x), np.max(pix_x), dx)
+   # yi = np.arange(np.min(pix_y), np.max(pix_y), dy)
+   # X, Y = np.meshgrid(xi, yi)
+    extent = [np.min(pix_x), np.max(pix_x), np.min(pix_y), np.max(pix_y)]
     figs, axs = plt.subplots(1,3, frameon = False)
-    axs[0].imshow(cleaned_image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray', interpolation='bilinear',
+    axs[0].imshow(cleaned_image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray', 
                   extent=extent)
     ident = path.split('/')[-1].split('.')[0]
     axs[0].set_title(f'Adjusted')
@@ -72,18 +72,18 @@ for path in paths:
     #plt.figure()
     #vmx = np.median(image)+5*np.std(image)
     #vmn = np.median(image)-5*np.std(image)
-    axs[1].imshow(image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray', interpolation='bilinear',
+    axs[1].imshow(image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray', 
                                    extent=extent)
     axs[1].set_title(f'Original Image')
-    axs[2].imshow(mask, origin = 'lower', cmap = 'gray')
-    axs[2].set_title(f'ProbabilityMask', interpolation='bilinear',
-                                      extent=extent)
-    axs[0].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r', interpolation='bilinear',
-                                    extent=extent)
-    axs[1].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r', interpolation='bilinear',
-                                    extent=extent)
-    axs[2].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r', interpolation='bilinear',
-                                    extent=extent)
+    axs[2].imshow(mask, origin = 'lower', cmap = 'gray', extent = extent)
+    axs[2].set_title(f'ProbabilityMask')
+                           #           extent=extent)
+    axs[0].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r') 
+                                   # extent=extent)
+    axs[1].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r')
+                                    #extent=extent)
+    axs[2].scatter(pix_x, pix_y, s = 40, facecolors = 'none', edgecolors = 'r')
+                                    #extent=extent)
     #axs[3].set_xlim(0,
     #axs[3].set_ylim(0, 
     #axs[3].set_title('Known Stars')

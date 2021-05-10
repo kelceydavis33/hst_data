@@ -29,11 +29,14 @@ thresh = 0.5
 lost = []
 n = 0
 bad_im = 0
-for path in paths:
+for path in paths[0:4]:
     n +=1
     print(f'Processing image {n} of {length}')
     #try:
     image = fits.getdata(path)
+    x_shape = image.shape[0]
+    y_shape = image.shape[1]
+    #print(image.shape)
 #    names = ['raQSO','decQSO']
     dtype = []
     dtype.append( ('raQSO','U20') )
@@ -57,12 +60,14 @@ for path in paths:
     mask, cleaned_image = mdl.clean(image, threshold = thresh)
     vmax = np.median(cleaned_image)+5*np.std(cleaned_image)
     vmin = np.median(cleaned_image)-5*np.std(cleaned_image)
+    extent = [0, x_shape, 0, y_shape]
    # dx, dy = 0.5, 0.5
 
    # xi = np.arange(np.min(pix_x), np.max(pix_x), dx)
    # yi = np.arange(np.min(pix_y), np.max(pix_y), dy)
    # X, Y = np.meshgrid(xi, yi)
-    extent = [np.min(pix_x), np.max(pix_x), np.min(pix_y), np.max(pix_y)]
+   #extent = [0, x_shape, 0, y_shape]
+   #extent = [np.min(pix_x), np.max(pix_x), np.min(pix_y), np.max(pix_y)]
     figs, axs = plt.subplots(1,3, frameon = False)
     axs[0].imshow(cleaned_image, vmin = vmin, vmax = vmax, origin = 'lower', cmap = 'gray', 
                   extent=extent)

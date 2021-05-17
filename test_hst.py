@@ -83,10 +83,13 @@ for path in paths:
             #Project these ra and dec coordinates to pixel coordinates using wcs
             y, x = wcs.all_world2pix(ra, dec, 1, adaptive = False, ra_dec_order = True)
             #Check to see if these objects are in the frame we plan to plot over
-            if (x>0)&(y>0)&(x<x_shape)&(y<y_shape):
-                #If they are, add them to our list to plot
-                pix_x.append(x)
-                pix_y.append(y)
+            if x>0:
+                if y>0:
+                    if x<x_shape:
+                        if y<y_shape:
+                            #If they are, add them to our list to plot
+                            pix_x.append(x)
+                            pix_y.append(y)
     #Creatinf the model using deepCR. These are all parameters you can change to alter the
     #way that the models are produced. More inputs can be found in the deepCR doccumentation
     mdl = deepCR(mask = "ACS-WFC-F606W-2-32", inpaint = "ACS-WFC-F606W-2-32", device = "CPU")

@@ -43,7 +43,7 @@ thresh = 0.5
 #Creating a parameter to track the number of itterations
 n = 0
 #Looping over the paths
-for path in paths[0:3]:
+for path in paths:
     #Increasing n by 1
     n +=1
     #printing an indication of the number of images to be processed

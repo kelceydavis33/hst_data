@@ -29,11 +29,12 @@ thresh = 0.5
 lost = []
 n = 0
 bad_im = 0
-for path in paths[0:4]:
+for path in paths[0:1]:
     n +=1
     print(f'Processing image {n} of {length}')
     #try:
     image = fits.getdata(path)
+    print(fits.open(path).info)
     x_shape = image.shape[0]
     y_shape = image.shape[1]
     #print(image.shape)

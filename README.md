@@ -14,7 +14,7 @@ We tackled the issue of abundant cosmic rays in photometry data from HST through
 ![image](https://user-images.githubusercontent.com/47015033/234673090-7fa02544-adbe-4078-a02d-67d02662c07e.png)
 
 
-The leftmost panel is the final image after our code has run. The middle image is the original HST data, contaminated by cosmic rays. The rightmost panel shows the identified cosmic rays which were removed from the image.
+The leftmost panel is the final image I wasa able to produce. The middle image is the original HST data, contaminated by cosmic rays. The rightmost panel shows the identified cosmic rays which were removed from the image.
 
 Red circles indicate known stars, which we do not want to subtract from the images. They are indicated by the region file included here. This project ended exploring the question of how we could quantify what was a star and what was a cosmic ray. While we have some ideas of how to acomplish this, the project remains open as I have moved on to a new research group since. I beleive Dr. Rubin plans to let a future student explore this concept further.
 
